@@ -1,31 +1,41 @@
-# RoutePulse (Hackathon MVP)
+# RoutePulse 🚚
 
-RoutePulse is a minimal real-time logistics monitoring MVP.
+RoutePulse is a real-time logistics monitoring and routing MVP that leverages AI to explain risk factors and reroute shipments dynamically.
 
-Architecture:
+## 🚀 Features
 
-Simulator -> Risk Engine -> Routing Engine -> AI Explainer -> API -> Frontend
+- **Real-Time Logistics Monitoring**: Monitor active shipments across different stages, routes, and operational statuses.
+- **Secure Authentication**: Robust, role-based access management powered by Clerk.
+- **Automated Risk Engine**: Automatically assess logistical risks based on factors like weather, traffic patterns, and vehicle issues.
+- **Dynamic Rerouting**: Generate alternative paths dynamically when original routes become too risky or blocked.
+- **AI-Powered Explainability**: Understand risk factors and routing decisions via an integrated natural language AI explainer.
 
-## Project Structure
+## 📁 Project Structure
 
-backend/
+```text
+RoutePulse/
+├── backend/                  # FastAPI & Python backend
+│   ├── app/
+│   │   ├── main.py           # Application entry point
+│   │   ├── models.py         # Pydantic data models
+│   │   ├── routes/           # API Endpoints (reroute, risk, shipments)
+│   │   └── services/         # Core business logic (AI, Risk, Routing, Simulator)
+│   ├── tests/                # Pytest suites
+│   └── requirements.txt      # Python dependencies
+├── frontend/                 # React + Vite frontend
+│   ├── public/               # Static assets
+│   ├── src/
+│   │   ├── components/       # Reusable UI React components (Cards, Layouts)
+│   │   ├── pages/            # Page-level components (Dashboard, Shipments...)
+│   │   ├── utils/            # API and utility functions
+│   │   ├── App.jsx           # Main React App routing & protected routes
+│   │   └── main.jsx          # React DOM mounting
+│   ├── package.json          # Node dependencies
+│   └── vite.config.js        # Vite configuration
+└── README.md                 # Project documentation
+```
 
-- app/main.py
-- app/models.py
-- app/routes/
-- app/services/simulator.py
-- app/services/risk_engine.py
-- app/services/routing.py
-- app/services/ai_explainer.py
-- app/services/store.py
-- tests/
-
-frontend/
-
-- src/components/
-- src/pages/
-
-## Run Instructions
+## 🛠️ Run Instructions
 
 ### 1) Backend
 
@@ -63,6 +73,7 @@ npm run dev
 Open [http://localhost:5173](http://localhost:5173).
 
 ### Hosting on Local Network
+
 To access RoutePulse from another device (like a phone) on the same Wi-Fi:
 1. Find your PC's IP address: Run `ipconfig` in PowerShell and look for `IPv4 Address` (e.g., `192.168.1.5`).
 2. Run the frontend: `npm run dev` (now updated with `--host`).
@@ -73,31 +84,43 @@ To access RoutePulse from another device (like a phone) on the same Wi-Fi:
    ```
 4. On your mobile device, navigate to `http://<your-ip>:5173`.
 
-Note: frontend dev server proxies /api requests to http://127.0.0.1:8000.
+Note: The frontend dev server proxies `/api` requests to `http://127.0.0.1:8000`.
 
-## Phase-by-Phase Manual Test Step
+## 🔮 Upcoming Features
 
-### Phase 1: Basic Backend
+- 📱 **Mobile Application**: Native mobile app for drivers to update statuses on the go.
+- 🔔 **Automated Alerts (SMS/Email)**: Notify stakeholders instantly when severe delays or risks are detected via Twilio/SendGrid.
+- 🏢 **Multi-Tenant Support**: Expanded capability for multiple logistics companies managing their own separate fleets.
+- 🌍 **Live GPS Integrations**: Real-time integration with physical IoT/GPS devices on fleet vehicles.
+- 📊 **Advanced Analytics Dashboard**: Historical trends reporting and predictive maintenance insights.
 
-1. Check health.
+## 📄 License
 
-```powershell
-curl http://localhost:8000/health
+This project is licensed under the MIT License.
+
+```text
+MIT License
+
+Copyright (c) 2026 Md Arif Hasnat
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ```
-
-Expected:
-
-```json
-{"status":"ok"}
-```
-
-1. Get shipments.
-
-```powershell
-curl http://localhost:8000/shipments
-```
-
-Expected: list with 3 seeded shipments (S-001, S-002, S-003).
 
 1. Get one shipment.
 
